@@ -22,8 +22,8 @@ import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.Timer;
@@ -41,7 +41,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
         setContentView(R.layout.activity_main);
 
         new MainActivityAnimation().execute("");
+
     }
+
 
     @Override
     public void onClick(View view) {
@@ -51,17 +53,21 @@ public class MainActivity extends Activity implements View.OnClickListener{
         }
     }
 
+    // Animation which runs on a separate thread
     private class MainActivityAnimation extends AsyncTask<String, Void, String>{
 
+        // Declarations to be used by this Async task.
+        // Declare more views here to be initialized in onPreExecute()
         private TextView tv1;
         private TextView tv2;
         private TextView tv3;
         private Timer timer;
-        private int index = 0;
+        private int index = 0;  // Used to keep track of which view is already visible
 
         @Override
         protected String doInBackground(String... strings)
         {
+            // Task that uses the index to determine which 2 views to cross-fade
             TimerTask task = new TimerTask(){
                 @Override
                 public void run() {
@@ -75,9 +81,13 @@ public class MainActivity extends Activity implements View.OnClickListener{
                         case 2:
                             fadeAwayView(tv3, tv1);
                             break;
-                    }
+                    }   // To add more views to transition, add another case here
+                    Log.d("Task", "Cross-faded 2 views.");
                 }
 
+                // Swaps one view with another using cross-fade animation
+                // out: the view that fades away
+                // in: view that fades in
                 public void fadeAwayView(View out, View in){
                     out.animate()
                             .alpha(0f)
@@ -85,6 +95,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
                     in.animate()
                             .alpha(1f)
                             .setDuration(1000);
+
+                    // Change index condition here to add/remove more views to transition
                     if(index!=2) {
                         index++;
                     }else{
@@ -92,44 +104,10 @@ public class MainActivity extends Activity implements View.OnClickListener{
                     }
                 }
 
-//                public void fadeAwayTV2(){
-//                    tv2.animate()
-//                            .alpha(0f)
-//                            .setDuration(1000)
-//                            .setListener(new AnimatorListenerAdapter() {
-//                                @Override
-//                                public void onAnimationEnd(Animator animation) {
-//                                    tv1.setVisibility(View.GONE);
-//                                }
-//                            });
-//                    tv3.setVisibility(View.VISIBLE);
-//                    tv3.animate()
-//                            .alpha(1f)
-//                            .setDuration(1000)
-//                            .setListener(null);
-//                    index = 2;
-//                }
-//
-//                public void fadeAwayTV3(){
-//                    tv2.animate()
-//                            .alpha(0f)
-//                            .setDuration(1000)
-//                            .setListener(new AnimatorListenerAdapter() {
-//                                @Override
-//                                public void onAnimationEnd(Animator animation) {
-//                                    tv1.setVisibility(View.GONE);
-//                                }
-//                            });
-//                    tv3.setVisibility(View.VISIBLE);
-//                    tv3.animate()
-//                            .alpha(1f)
-//                            .setDuration(1000)
-//                            .setListener(null);
-//                    index = 0;
-//                }
             };
+            Log.d("Task", "Scheduled new task");
             timer = new Timer(true);
-            timer.schedule(task, 0, 3000);    // Checks approximately every second
+            timer.schedule(task, 0, 2500);    // Every 2.5 seconds, change displayed text
 
             return "Done";
         }
@@ -141,6 +119,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
         @Override
         protected void onPreExecute() {
+            // onPreExecute() is able to retrieve GUI components, so this is a good place to initialize them
+            // Initialize views here to be able to include them into cycle
             tv1 = (TextView) findViewById(R.id.textView4);
             tv2 = (TextView) findViewById(R.id.textView5);
             tv3 = (TextView) findViewById(R.id.textView6);
