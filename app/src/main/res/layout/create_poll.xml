@@ -14,6 +14,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_weight="0.5"
+        android:gravity="bottom"
         android:padding="5dp"
         android:text="Question" />
 
@@ -43,6 +44,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_weight="0.5"
+        android:gravity="bottom"
         android:padding="5dp"
         android:text="Options" />
 
@@ -66,6 +68,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_weight="0.5"
+        android:gravity="bottom"
         android:padding="5dp"
         android:text="New option" />
 
@@ -82,6 +85,7 @@
             android:layout_gravity="left"
             android:layout_weight="1"
             android:ems="10"
+            android:hint="Type a new answer!"
             android:inputType="textPersonName"
             android:text="Name" />
 
@@ -89,8 +93,11 @@
             android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:layout_weight="3"
-            android:text="Button" />
+            android:background="@drawable/rounded_button_gray"
+            android:text="Add"
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 
@@ -135,7 +142,7 @@
         android:layout_height="0dp"
         android:layout_margin="15dp"
         android:layout_weight="1"
-        android:background="@drawable/rounded_button"
+        android:background="@drawable/rounded_button_blue"
         android:text="Create Poll"
         android:textColor="@android:color/white" />
 

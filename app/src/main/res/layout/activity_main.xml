@@ -15,16 +15,16 @@
     <TextView
         android:id="@+id/textView9"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="50dp"
         android:layout_weight=".1"
-        android:gravity="center"
+        android:gravity="bottom|center"
         android:text="Pie Poll"
         android:textSize="50dp" />
 
     <TextView
         android:id="@+id/textView10"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight=".1"
         android:gravity="top|center"
         android:text="Polls made quick!"
@@ -33,7 +33,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="140dp"
-        android:layout_weight=".25">
+        android:layout_weight=".50">
 
         <TextView
             android:id="@+id/textView4"
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:background="@drawable/rounded_button"
+            android:background="@drawable/rounded_button_blue"
             android:text="Login"
             android:textColor="@android:color/white" />
 
@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:background="@drawable/rounded_button"
+            android:background="@drawable/rounded_button_blue"
             android:text="Register"
             android:textColor="@android:color/white" />
 
@@ -97,10 +97,21 @@
             android:layout_height="match_parent" />
     </LinearLayout>
 
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/rounded_button_gray"
+        android:text="Continue as Guest"
+        android:textColor="@android:color/white" />
+
     <Space
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="50dp" />
+        android:layout_margin="30dp" />
 
 
 </LinearLayout>
