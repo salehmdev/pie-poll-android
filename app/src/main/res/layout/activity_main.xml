@@ -4,29 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_weight=".1"
     android:background="#f8f9fa"
     android:orientation="vertical">
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp" />
+        android:layout_margin="25sp"
+        android:layout_weight=".1" />
 
     <TextView
-        android:id="@+id/textView9"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_weight=".1"
-        android:gravity="bottom|center"
-        android:text="Pie Poll"
-        android:textSize="50dp" />
-
-    <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/text_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight=".1"
+        android:layout_weight=".05"
+        android:gravity="bottom|center"
+        android:text="Pie Poll"
+        android:textSize="50sp" />
+
+    <TextView
+        android:id="@+id/text_subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5sp"
+        android:layout_weight=".025"
         android:gravity="top|center"
+        android:padding="5sp"
         android:text="Polls made quick!"
         android:textSize="18sp" />
 
@@ -41,7 +45,7 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical|center"
             android:text="Easily create polls."
-            android:textSize="30dp" />
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/text_animation_2"
@@ -50,7 +54,7 @@
             android:alpha="0"
             android:gravity="center_vertical|center"
             android:text="Sharing is easy."
-            android:textSize="30dp" />
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/text_animation_3"
@@ -59,7 +63,7 @@
             android:alpha="0"
             android:gravity="center_vertical|center"
             android:text="Ensure valid entries."
-            android:textSize="30dp" />
+            android:textSize="30sp" />
 
     </FrameLayout>
 
@@ -69,41 +73,41 @@
         android:orientation="horizontal">
 
         <Space
-            android:layout_width="5dp"
+            android:layout_width="5sp"
             android:layout_height="match_parent" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/button_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="5sp"
             android:layout_weight="1"
             android:background="@drawable/rounded_button_blue"
             android:text="Login"
             android:textColor="@android:color/white" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/button_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="5sp"
             android:layout_weight="1"
             android:background="@drawable/rounded_button_blue"
             android:text="Register"
             android:textColor="@android:color/white" />
 
         <Space
-            android:layout_width="5dp"
+            android:layout_width="5sp"
             android:layout_height="match_parent" />
     </LinearLayout>
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/button_guest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_margin="10sp"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10sp"
         android:background="@drawable/rounded_button_gray"
         android:text="Continue as Guest"
         android:textColor="@android:color/white" />
@@ -111,7 +115,8 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp" />
+        android:layout_margin="30sp"
+        android:layout_weight=".1" />
 
 
 </LinearLayout>

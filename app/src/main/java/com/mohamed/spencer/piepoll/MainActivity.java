@@ -18,10 +18,12 @@
 package com.mohamed.spencer.piepoll;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Timer;
@@ -30,12 +32,39 @@ import java.util.TimerTask;
 public class MainActivity extends Activity implements View.OnClickListener{
 
     public MainActivityAnimation animation;
+    public Button loginButton;
+    public Button registerButton;
+    public Button guestButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        loginButton = (Button) findViewById(R.id.button_login);
+        registerButton = (Button) findViewById(R.id.button_register);
+        guestButton = (Button) findViewById(R.id.button_guest);
+
+        loginButton.setOnClickListener(this);
+        registerButton.setOnClickListener(this);
+        guestButton.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch(view.getId())
+        {//TODO: Set up listeners to each button on the page
+            case R.id.button_login:
+
+                break;
+            case R.id.button_register:
+
+                break;
+            case R.id.button_guest:
+                Intent intent = new Intent(this, HomeActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 
     @Override
@@ -55,15 +84,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
     public void onStop(){
         super.onStop();
         animation.keepRunning = false;
-    }
-
-
-    @Override
-    public void onClick(View view) {
-        switch(view.getId())
-        {
-
-        }
     }
 
     // Animation which runs on a separate thread

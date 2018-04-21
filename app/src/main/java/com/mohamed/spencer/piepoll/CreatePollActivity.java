@@ -3,11 +3,11 @@ package com.mohamed.spencer.piepoll;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class CreatePoll extends Activity {
+public class CreatePollActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.create_poll);
+        setContentView(R.layout.activity_create_poll);
     }
 }
