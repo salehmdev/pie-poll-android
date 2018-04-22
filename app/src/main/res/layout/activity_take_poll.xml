@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e2e2e2"
+    android:orientation="vertical">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".1" />
+
+    <TextView
+        android:id="@+id/text_take_poll_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10sp"
+        android:background="@color/background"
+        android:padding="5sp"
+        android:text="@string/teke_poll_name"
+        android:textSize="24sp" />
+
+    <ScrollView
+        android:id="@+id/sv_take_poll"
+        android:layout_width="match_parent"
+        android:layout_height="30sp"
+        android:layout_weight="1"
+        android:background="@color/background">
+
+        <LinearLayout
+            android:id="@+id/ll_take_poll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_take_poll_vote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10sp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_button_blue"
+            android:text="Vote"
+            android:textColor="@android:color/white"
+            android:textSize="24sp" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/button_take_poll_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10sp"
+            android:layout_weight=".75"
+            android:background="@drawable/rounded_button_blue"
+            android:text="Share"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/button_take_poll_results"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10sp"
+            android:layout_weight=".75"
+            android:background="@drawable/rounded_button_blue"
+            android:text="Results"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".1" />
+</LinearLayout>
