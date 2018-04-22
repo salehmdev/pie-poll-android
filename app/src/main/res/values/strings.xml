@@ -2,4 +2,6 @@
     <string name="app_name">Pie Poll</string>
     <string name="login_menu_item">Login/ Register</string>
     <string name="logout_menu_item">Logout</string>
+    <string name="teke_poll_name">new_poll</string>
+    <string name="text_results_number_of_votes">0 Votes</string>
 </resources>

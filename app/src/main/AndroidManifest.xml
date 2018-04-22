@@ -16,16 +16,31 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomeActivity"
-            android:theme="@android:style/Theme.Holo.Light.DarkActionBar">
-
-        </activity>
         <activity android:name=".CreatePollActivity"
             android:parentActivityName=".HomeActivity"
             android:windowSoftInputMode="adjustPan" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".HomeActivity" />
+        </activity>
+        <activity android:name=".ExplorePollsActivity">
+
+        </activity>
+        <activity android:name=".HomeActivity"
+            android:theme="@android:style/Theme.Holo.Light.DarkActionBar">
+
+        </activity>
+        <activity android:name=".LoginActivity">
+
+        </activity>
+        <activity android:name=".RegisterActivity">
+
+        </activity>
+        <activity android:name=".TakePollActivity">
+
+        </activity>
+        <activity android:name=".ViewPollResultsActivity">
+
         </activity>
     </application>
 

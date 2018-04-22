@@ -2,22 +2,36 @@ package com.mohamed.spencer.piepoll;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
-public class HomeActivity extends Activity {
+public class HomeActivity extends Activity implements View.OnClickListener {
 
     public Button createPoll;
     public Button viewPolls;
+    public SharedPreferences prefs;
+    public SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        editor = prefs.edit();
+
+        createPoll = (Button) findViewById(R.id.button_create_poll);
+        viewPolls = (Button) findViewById(R.id.button_explore_polls);
+
+        createPoll.setOnClickListener(this);
+        viewPolls.setOnClickListener(this);
     }
 
     /*
@@ -28,7 +42,21 @@ public class HomeActivity extends Activity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu)
     {
-        // TODO: Check (SharedPrefs?) if user is logged in, then disable login or logout button from dropdown menu
+        boolean isLoggedIn = prefs.getBoolean("isLoggedIn", false);
+
+        // If logged in
+        if(isLoggedIn)
+        {
+            menu.findItem(R.id.menu_item_login).setEnabled(false);
+            menu.findItem(R.id.menu_item_login).setVisible(false);
+            menu.findItem(R.id.menu_item_logout).setEnabled(true);
+            menu.findItem(R.id.menu_item_logout).setVisible(true);
+        }else{
+            menu.findItem(R.id.menu_item_logout).setEnabled(false);
+            menu.findItem(R.id.menu_item_logout).setVisible(false);
+            menu.findItem(R.id.menu_item_login).setEnabled(true);
+            menu.findItem(R.id.menu_item_login).setVisible(true);
+        }
 
         return true;
     }
@@ -47,15 +75,18 @@ public class HomeActivity extends Activity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.menu_item_login:
-                // TODO: Take user to MainActivity
                 intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
+                finish();
                 return true;
             case R.id.menu_item_logout:
-                // TODO: Log the user out
-
+                // TODO: Log the user out (remove login key from shared prefs?)
+                editor.putBoolean("isLoggedIn", false);
+                editor.commit();
                 // finish() causes the activity to end its life cycle, which means user cannot press back button to it
                 // Sends user back to MainActivity
+                intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
                 finish();
                 return true;
             default:
@@ -63,4 +94,19 @@ public class HomeActivity extends Activity {
         }
     }
 
+    @Override
+    public void onClick(View view) {
+        Intent intent;
+        switch(view.getId())
+        {
+            case R.id.button_create_poll:
+                intent = new Intent(this, CreatePollActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.button_explore_polls:
+                intent = new Intent(this, ExplorePollsActivity.class);
+                startActivity(intent);
+                break;
+        }
+    }
 }

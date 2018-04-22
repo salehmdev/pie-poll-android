@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_weight=".1"
-    android:background="#f8f9fa"
+    android:background="@color/background"
     android:orientation="vertical">
 
     <Space
@@ -77,7 +77,7 @@
             android:layout_height="match_parent" />
 
         <Button
-            android:id="@+id/button_login"
+            android:id="@+id/button_main_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5sp"
@@ -87,7 +87,7 @@
             android:textColor="@android:color/white" />
 
         <Button
-            android:id="@+id/button_register"
+            android:id="@+id/button_main_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5sp"
@@ -102,7 +102,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button_guest"
+        android:id="@+id/button_main_guest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10sp"

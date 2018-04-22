@@ -18,9 +18,12 @@
 package com.mohamed.spencer.piepoll;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -35,15 +38,24 @@ public class MainActivity extends Activity implements View.OnClickListener{
     public Button loginButton;
     public Button registerButton;
     public Button guestButton;
+    public SharedPreferences prefs;
+    public SharedPreferences.Editor editor;
+    public String username;
+    public String password;
+    public boolean isLoggedIn;
+    public Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        loginButton = (Button) findViewById(R.id.button_login);
-        registerButton = (Button) findViewById(R.id.button_register);
-        guestButton = (Button) findViewById(R.id.button_guest);
+        prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        //editor = prefs.edit();
+
+        loginButton = (Button) findViewById(R.id.button_main_login);
+        registerButton = (Button) findViewById(R.id.button_main_register);
+        guestButton = (Button) findViewById(R.id.button_main_guest);
 
         loginButton.setOnClickListener(this);
         registerButton.setOnClickListener(this);
@@ -54,14 +66,16 @@ public class MainActivity extends Activity implements View.OnClickListener{
     public void onClick(View view) {
         switch(view.getId())
         {//TODO: Set up listeners to each button on the page
-            case R.id.button_login:
-
+            case R.id.button_main_login:
+                intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
                 break;
-            case R.id.button_register:
-
+            case R.id.button_main_register:
+                intent = new Intent(this, RegisterActivity.class);
+                startActivity(intent);
                 break;
-            case R.id.button_guest:
-                Intent intent = new Intent(this, HomeActivity.class);
+            case R.id.button_main_guest:
+                intent = new Intent(this, HomeActivity.class);
                 startActivity(intent);
                 break;
         }
@@ -70,8 +84,23 @@ public class MainActivity extends Activity implements View.OnClickListener{
     @Override
     public void onResume(){
         super.onResume();   // Always call superclass method first
+
+        // Every time this page is loaded, it first checks if user credentials is already stored.
+        username = prefs.getString("username", "");
+        password = prefs.getString("password", "");
+        isLoggedIn = prefs.getBoolean("isLoggedIn", false);
+
+        // TODO: Check if SharedPref stored login credentials is valid. If so, then take to Home as logged in
+        if(isLoggedIn)
+        {
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
         animation = new MainActivityAnimation();
         animation.execute("");    // Restart the animation
+
     }
 
     @Override
