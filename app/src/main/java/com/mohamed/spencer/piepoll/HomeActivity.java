@@ -51,6 +51,8 @@ public class HomeActivity extends Activity implements View.OnClickListener {
     public boolean onPrepareOptionsMenu(Menu menu)
     {
         boolean isLoggedIn = prefs.getBoolean("isLoggedIn", false);
+        String username = prefs.getString("username", "");
+        menu.findItem(R.id.menu_item_username).setTitle(username);
 
         // If logged in
         if(isLoggedIn)
