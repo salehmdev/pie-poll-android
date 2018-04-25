@@ -28,7 +28,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -51,7 +57,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         setContentView(R.layout.activity_main);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        //editor = prefs.edit();
+        editor = prefs.edit();
 
         loginButton = (Button) findViewById(R.id.button_main_login);
         registerButton = (Button) findViewById(R.id.button_main_register);
@@ -85,22 +91,13 @@ public class MainActivity extends Activity implements View.OnClickListener{
     public void onResume(){
         super.onResume();   // Always call superclass method first
 
-        // Every time this page is loaded, it first checks if user credentials is already stored.
-        username = prefs.getString("username", "");
-        password = prefs.getString("password", "");
-        isLoggedIn = prefs.getBoolean("isLoggedIn", false);
+        String session = prefs.getString("PHPSESSID", "");
 
-        // TODO: Check if SharedPref stored login credentials is valid. If so, then take to Home as logged in
-        if(isLoggedIn)
-        {
-            Intent intent = new Intent(this, HomeActivity.class);
-            startActivity(intent);
-            finish();
-        }
+        CheckLoginTask checkLogin = new CheckLoginTask();
+        checkLogin.execute(session);
 
         animation = new MainActivityAnimation();
         animation.execute("");    // Restart the animation
-
     }
 
     @Override
@@ -201,6 +198,62 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
         @Override
         protected void onProgressUpdate(Void... values) {
+        }
+    }
+
+    private class CheckLoginTask extends AsyncTask<String, Double,  WebRequest.Response> {
+
+        protected  WebRequest.Response doInBackground(String... s) {
+            WebRequest.Response r = null;
+            Map<String, String> parameters = new HashMap<>();
+            String session = s[0];
+
+            WebRequest wr = new WebRequest();
+            try {
+                r = wr.postRequest("http://piepoll.us-east-1.elasticbeanstalk.com/login/checklogin.php", parameters, session);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            //publishProgress(progress);
+
+            return r;
+        }
+
+        protected void onProgressUpdate(Double... progress) {
+            //Log.i("a", Double.toString(progress[0]));
+
+        }
+
+        protected void onPostExecute(WebRequest.Response result) {
+            int status = -1;
+            String message = "";
+
+            try {
+                JSONObject jsonObject = new JSONObject(result.body);
+                status = jsonObject.getInt("code");
+                message = jsonObject.getString("error");
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            // TODO: Check login credentials and either give error or advance to home (Also store login in sharedprefs?)
+            if(status == 1)
+            {
+                Log.i("CheckLogin", "Already logged in!");
+                editor.putBoolean("isLoggedIn", true);
+                editor.commit();
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
+                editor.putBoolean("isLoggedIn", false);
+                editor.putString("PHPSESSID", "");
+                editor.commit();
+            }
+
+            Log.i("d",  result.body);
         }
     }
 }
