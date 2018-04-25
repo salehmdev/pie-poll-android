@@ -18,7 +18,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     public SharedPreferences prefs;
     public SharedPreferences.Editor editor;
 
-
     @Override
     public void onCreate(Bundle savedInstances) {
         super.onCreate(savedInstances);
