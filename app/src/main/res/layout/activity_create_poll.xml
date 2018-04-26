@@ -109,32 +109,32 @@
         android:layout_marginTop="2dp"
         android:background="#007bff" />
 
-    <Switch
-        android:id="@+id/switch_create_poll_multians"
+    <CheckBox
+        android:id="@+id/cb_create_poll_multians"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_weight="0.5"
-        android:text="Switch" />
+        android:text="Allow multiple answers" />
 
-    <Switch
-        android:id="@+id/switch_create_poll_accountreq"
+    <CheckBox
+        android:id="@+id/cb_create_poll_accountreq"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_weight="0.5"
-        android:text="Switch" />
+        android:text="Require account to vote" />
 
-    <Switch
-        android:id="@+id/switch_create_poll_uniqueip"
+    <CheckBox
+        android:id="@+id/cb_create_poll_uniqueip"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_weight="0.5"
-        android:text="Switch" />
+        android:text="Enforce unique IP for each vote" />
 
     <Button
         android:id="@+id/button_create_poll_submit"
