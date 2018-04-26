@@ -86,9 +86,6 @@ public class ExplorePollsActivity extends Activity implements View.OnClickListen
         ListAdapter pollAdapter = listViewPollList.getAdapter();
         Poll p = (Poll)pollAdapter.getItem(position);
 
-        Toast toast = Toast.makeText(getApplicationContext(), p.id, Toast.LENGTH_SHORT);
-        toast.show();
-
         Intent intent = new Intent(this, TakePollActivity.class);
         intent.putExtra("pollid", p.id);
         startActivity(intent);
@@ -165,8 +162,8 @@ public class ExplorePollsActivity extends Activity implements View.OnClickListen
     }
 
     public class PollsAdapter extends ArrayAdapter<Poll> {
-        public PollsAdapter(Context context, ArrayList<Poll> users) {
-            super(context, 0, users);
+        public PollsAdapter(Context context, ArrayList<Poll> pollsList) {
+            super(context, 0, pollsList);
         }
 
         @Override
@@ -176,9 +173,16 @@ public class ExplorePollsActivity extends Activity implements View.OnClickListen
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.explore_polls_item, parent, false);
             }
             TextView tvQuestion = (TextView) convertView.findViewById(R.id.tvExplorePollQuestion);
+            TextView tvDays = (TextView) convertView.findViewById(R.id.tvExplorePollDays);
             TextView tvVotes = (TextView) convertView.findViewById(R.id.tvExplorePollVotes);
             tvQuestion.setText(poll.question);
-            tvVotes.setText(poll.votes);
+            tvVotes.setText(poll.votes + "v");
+            if(poll.days.equals("0")) {
+                tvDays.setVisibility(View.INVISIBLE);
+            } else {
+                tvDays.setText(poll.days + "d");
+            }
+
             return convertView;
         }
     }
