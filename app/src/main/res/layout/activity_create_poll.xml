@@ -20,15 +20,15 @@
         android:text="Question" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/et_create_poll_question"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_weight="1"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Type a question..." />
+        android:hint="Type a question..."
+        android:inputType="textPersonName" />
 
     <View
         android:id="@+id/view3"
@@ -50,7 +50,7 @@
         android:text="Options" />
 
     <ListView
-        android:id="@android:id/list"
+        android:id="@+id/lv_create_poll"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginLeft="5dp"
@@ -80,18 +80,17 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/et_create_poll_new_answer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:layout_weight="1"
             android:ems="10"
             android:hint="Type a new answer!"
-            android:inputType="textPersonName"
-            android:text="Name" />
+            android:inputType="textPersonName" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/button_create_poll_new_answer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -111,7 +110,7 @@
         android:background="#007bff" />
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/switch_create_poll_multians"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginLeft="5dp"
@@ -120,7 +119,7 @@
         android:text="Switch" />
 
     <Switch
-        android:id="@+id/switch3"
+        android:id="@+id/switch_create_poll_accountreq"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginLeft="5dp"
@@ -129,7 +128,7 @@
         android:text="Switch" />
 
     <Switch
-        android:id="@+id/switch2"
+        android:id="@+id/switch_create_poll_uniqueip"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginLeft="5dp"
@@ -138,7 +137,7 @@
         android:text="Switch" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/button_create_poll_submit"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="15dp"

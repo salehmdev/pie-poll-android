@@ -52,7 +52,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
     public boolean onPrepareOptionsMenu(Menu menu)
     {
         boolean isLoggedIn = prefs.getBoolean("isLoggedIn", false);
-        String username = prefs.getString("username", "");
+        String username = prefs.getString("username", "Guest");
         menu.findItem(R.id.menu_item_username).setTitle(username);
 
         // If logged in
@@ -159,6 +159,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
             if(status == 1)
             {
                 Log.i("Logout", "Successfully logged out!");
+                editor.putString("username", "Guest");
                 editor.putBoolean("isLoggedIn", false);
                 editor.putString("PHPSESSID", "");
                 editor.commit();
