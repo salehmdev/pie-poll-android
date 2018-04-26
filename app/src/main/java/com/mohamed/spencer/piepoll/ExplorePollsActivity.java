@@ -1,14 +1,20 @@
 package com.mohamed.spencer.piepoll;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -26,6 +32,7 @@ public class ExplorePollsActivity extends Activity implements View.OnClickListen
     Button nextButton;
     ListView listViewPollList;
     int pollsOffset = 0;
+    List<Poll> pollsList = new ArrayList<Poll>();
 
     @Override
     public void onCreate(Bundle savedInstances) {
@@ -38,9 +45,11 @@ public class ExplorePollsActivity extends Activity implements View.OnClickListen
 
         previousButton.setOnClickListener(this);
         nextButton.setOnClickListener(this);
-
-        // TODO: Retrieve poll list from DB and create a onClickListener for each, which starts new activity ViewPollResultsActivity.class
-        // Possible solution: Use ScrollView instead of ListView?
+        listViewPollList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                onPollClick(parent, view, position, id);
+            }
+        });
 
     }
 
@@ -53,7 +62,6 @@ public class ExplorePollsActivity extends Activity implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
-        // TODO: Change displayed data based on page number, update button (enabled/disabled)
         GetPolls getPolls;
         switch(view.getId())
         {
@@ -72,6 +80,18 @@ public class ExplorePollsActivity extends Activity implements View.OnClickListen
                 getPolls.execute(Integer.toString(pollsOffset));
                 break;
         }
+    }
+
+    public void onPollClick(AdapterView<?> parent, View view, int position, long id) {
+        ListAdapter pollAdapter = listViewPollList.getAdapter();
+        Poll p = (Poll)pollAdapter.getItem(position);
+
+        Toast toast = Toast.makeText(getApplicationContext(), p.id, Toast.LENGTH_SHORT);
+        toast.show();
+
+        Intent intent = new Intent(this, TakePollActivity.class);
+        intent.putExtra("pollid", p.id);
+        startActivity(intent);
     }
 
     private class GetPolls extends AsyncTask<String, Double,  WebRequest.Response> {
@@ -106,7 +126,7 @@ public class ExplorePollsActivity extends Activity implements View.OnClickListen
                 JSONArray polls = jsonObject.getJSONArray("polls");
 
                 if(polls.length() > 0) {
-                    List<String> pollsList = new ArrayList<String>();
+                    ArrayList<Poll> pList = new ArrayList<Poll>();
 
                     for (int i = 0; i < polls.length(); i++) {
                         JSONObject poll = polls.getJSONObject(i);
@@ -114,10 +134,13 @@ public class ExplorePollsActivity extends Activity implements View.OnClickListen
                         String question = poll.getString("question");
                         String votes = poll.getString("votes");
                         String days = poll.getString("days");
+                        Poll p = new Poll(id, question, votes, days);
                         Log.i("Poll", "ID: " + id + ", question: " + question + ", votes: " + votes + ", days: " + days);
-                        pollsList.add(question);
+                        pList.add(p);
                     }
-                    ArrayAdapter<String> pollAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, pollsList);
+                    pollsList = pList;
+                    PollsAdapter adapter = new PollsAdapter(getApplicationContext(), pList);
+                    ArrayAdapter<Poll> pollAdapter = adapter;
                     listViewPollList.setAdapter(pollAdapter);
                 } else {
                     Toast.makeText(getApplicationContext(), "No more polls!", Toast.LENGTH_SHORT).show();
@@ -137,6 +160,40 @@ public class ExplorePollsActivity extends Activity implements View.OnClickListen
             }
 
             Log.i("d",  result.body);
+        }
+
+    }
+
+    public class PollsAdapter extends ArrayAdapter<Poll> {
+        public PollsAdapter(Context context, ArrayList<Poll> users) {
+            super(context, 0, users);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            Poll poll = getItem(position);
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.explore_polls_item, parent, false);
+            }
+            TextView tvQuestion = (TextView) convertView.findViewById(R.id.tvExplorePollQuestion);
+            TextView tvVotes = (TextView) convertView.findViewById(R.id.tvExplorePollVotes);
+            tvQuestion.setText(poll.question);
+            tvVotes.setText(poll.votes);
+            return convertView;
+        }
+    }
+
+    public class Poll {
+        public String id;
+        public String question;
+        public String votes;
+        public String days;
+
+        public Poll(String id, String question, String votes, String days) {
+            this.id = id;
+            this.question = question;
+            this.votes = votes;
+            this.days = days;
         }
     }
 }

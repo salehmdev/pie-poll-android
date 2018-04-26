@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -92,6 +93,10 @@ public class HomeActivity extends Activity implements View.OnClickListener {
             case R.id.menu_item_logout:
                 LogoutTask logoutTask = new LogoutTask();
                 logoutTask.execute();
+                return true;
+            case R.id.menu_item_username:
+                String username = prefs.getString("username", "guy");
+                Toast.makeText(getApplicationContext(), "Hello " + username, Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
