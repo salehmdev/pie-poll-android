@@ -74,7 +74,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     @Override
     public void onClick(View view) {
         switch(view.getId())
-        {//TODO: Set up listeners to each button on the page
+        {// Set up listeners to each button on the page
             case R.id.button_main_login:
                 intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
@@ -241,7 +241,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 e.printStackTrace();
             }
 
-            // TODO: Check login credentials and either give error or advance to home (Also store login in sharedprefs?)
+            // Check login credentials and either give error or advance to home (Also store login in sharedprefs?)
             if(status == 1)
             {
                 Log.i("CheckLogin", "Already logged in!");

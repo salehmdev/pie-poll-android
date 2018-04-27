@@ -158,7 +158,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
                 e.printStackTrace();
             }
 
-            // TODO: Check login credentials and either give error or advance to home (Also store login in sharedprefs?)
+            // Check login credentials and either give error or advance to home (Also store login in sharedprefs?)
             if(status == 1)
             {
                 Log.i("Logout", "Successfully logged out!");

@@ -109,7 +109,6 @@ public class CreatePollActivity extends Activity implements View.OnClickListener
     }
 
     private void submitPoll() {
-        // TODO: implement submit handler
         if (!questionEditText.getText().toString().matches("")) {
 
             if(listView.getChildCount() != 0)

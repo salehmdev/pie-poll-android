@@ -318,6 +318,7 @@ public class TakePollActivity extends Activity implements View.OnClickListener {
                     CheckBox chkOption = new CheckBox(getApplicationContext());
                     chkOption.setText(poll.options.get(i).description);
                     chkOption.setTag(poll.options.get(i).id);
+                    chkOption.setTextSize(24f);
                     chkOption.setOnClickListener((TakePollActivity) activityContext);
                     llTakePoll.addView(chkOption);
                 }
