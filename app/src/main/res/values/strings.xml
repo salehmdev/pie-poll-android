@@ -4,4 +4,5 @@
     <string name="logout_menu_item">Logout</string>
     <string name="teke_poll_name">new_poll</string>
     <string name="text_results_number_of_votes">0 Votes</string>
+    <string name="menu_item_username">Username</string>
 </resources>

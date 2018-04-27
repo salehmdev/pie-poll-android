@@ -2,6 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/menu_item_username"
+        android:layout_width="wrap_content"
+        android:title="@string/menu_item_username" />
+    <item
         android:id="@+id/menu_item_login"
         android:title="@string/login_menu_item" />
     <item

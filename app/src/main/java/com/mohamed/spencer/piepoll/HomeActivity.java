@@ -3,14 +3,26 @@ package com.mohamed.spencer.piepoll;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class HomeActivity extends Activity implements View.OnClickListener {
 
@@ -43,6 +55,8 @@ public class HomeActivity extends Activity implements View.OnClickListener {
     public boolean onPrepareOptionsMenu(Menu menu)
     {
         boolean isLoggedIn = prefs.getBoolean("isLoggedIn", false);
+        String username = prefs.getString("username", "Guest");
+        menu.findItem(R.id.menu_item_username).setTitle(username);
 
         // If logged in
         if(isLoggedIn)
@@ -80,14 +94,12 @@ public class HomeActivity extends Activity implements View.OnClickListener {
                 finish();
                 return true;
             case R.id.menu_item_logout:
-                // TODO: Log the user out (remove login key from shared prefs?)
-                editor.putBoolean("isLoggedIn", false);
-                editor.commit();
-                // finish() causes the activity to end its life cycle, which means user cannot press back button to it
-                // Sends user back to MainActivity
-                intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-                finish();
+                LogoutTask logoutTask = new LogoutTask();
+                logoutTask.execute();
+                return true;
+            case R.id.menu_item_username:
+                String username = prefs.getString("username", "guy");
+                Toast.makeText(getApplicationContext(), "Hello " + username, Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -107,6 +119,61 @@ public class HomeActivity extends Activity implements View.OnClickListener {
                 intent = new Intent(this, ExplorePollsActivity.class);
                 startActivity(intent);
                 break;
+        }
+    }
+
+    private class LogoutTask extends AsyncTask<String, Double,  WebRequest.Response> {
+
+        protected  WebRequest.Response doInBackground(String... s) {
+            WebRequest.Response r = null;
+            Multimap<String, String> parameters = ArrayListMultimap.create();
+
+            WebRequest wr = new WebRequest();
+            try {
+                r = wr.postRequest("http://piepoll.us-east-1.elasticbeanstalk.com/login/logout.php", parameters);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            //publishProgress(progress);
+
+            return r;
+        }
+
+        protected void onProgressUpdate(Double... progress) {
+            //Log.i("a", Double.toString(progress[0]));
+
+        }
+
+        protected void onPostExecute(WebRequest.Response result) {
+            int status = -1;
+            String message = "";
+
+            try {
+                JSONObject jsonObject = new JSONObject(result.body);
+                status = jsonObject.getInt("code");
+                message = jsonObject.getString("error");
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            // Check login credentials and either give error or advance to home (Also store login in sharedprefs?)
+            if(status == 1)
+            {
+                Log.i("Logout", "Successfully logged out!");
+                editor.putString("username", "Guest");
+                editor.putBoolean("isLoggedIn", false);
+                editor.putString("PHPSESSID", "");
+                editor.commit();
+                // finish() causes the activity to end its life cycle, which means user cannot press back button to it
+                // Sends user back to MainActivity
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
+            Log.i("d",  result.body);
         }
     }
 }
