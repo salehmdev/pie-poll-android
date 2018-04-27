@@ -1,5 +1,9 @@
 package com.mohamed.spencer.piepoll;
 
+import android.util.Log;
+
+import com.google.common.collect.Multimap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +13,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+
 
 public class WebRequest {
 
@@ -69,7 +74,7 @@ public class WebRequest {
         return r;
     }
 
-    public Response postRequest(String URL, Map<String, String> parameters, String... phpsession) throws Exception {
+    public Response postRequest(String URL, Multimap<String, String> parameters, String... phpsession) throws Exception {
       URL obj = new URL(URL);
       String sessionId = "";
       if(phpsession.length > 0) {
@@ -78,11 +83,12 @@ public class WebRequest {
 
       String params = "";
 
-      for (Map.Entry<String, String> entry : parameters.entrySet()) {
+      for (Map.Entry<String, String> entry : parameters.entries()) {
         params += URLEncoder.encode(entry.getKey(), "UTF-8");
         params += "=";
         params += URLEncoder.encode(entry.getValue(), "UTF-8");
         params += "&";
+        Log.i("entry", entry.getValue());
       }
 
       HttpURLConnection conn = (HttpURLConnection) obj.openConnection();

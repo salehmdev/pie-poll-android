@@ -57,10 +57,9 @@
         android:layout_marginRight="5dp"
         android:layout_weight="3"
         android:background="#e4e4e4"
-        android:divider="@android:color/white"
+        android:divider="@android:color/holo_blue_light"
         android:dividerHeight="3dp"
-        android:drawSelectorOnTop="false"
-        android:entries="@array/testlist" />
+        android:drawSelectorOnTop="false" />
 
     <TextView
         android:id="@+id/textView3"

@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -56,7 +59,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
         protected  WebRequest.Response doInBackground(String... s) {
             WebRequest.Response r = null;
-            Map<String, String> parameters = new HashMap<>();
+            Multimap<String, String> parameters = ArrayListMultimap.create();
             parameters.put("username", s[0]);
             parameters.put("password", s[1]);
 

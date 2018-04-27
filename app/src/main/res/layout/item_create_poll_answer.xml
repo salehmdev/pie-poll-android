@@ -15,7 +15,7 @@
         android:gravity="center_vertical|left"
         android:maxWidth="265sp"
         android:padding="5dp"
-        android:text="Question Question Question Question Question Question Question Question Question "
+        android:text="Question"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,17 +25,18 @@
 
     <Button
         android:id="@+id/button_create_poll_answer_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="30sp"
+        android:layout_height="30sp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
         android:background="@drawable/rounded_button_red"
         android:gravity="center"
         android:padding="2dp"
-        android:text="Delete"
+        android:text="-"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault"
         android:textColor="@android:color/white"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -43,9 +44,8 @@
     <View
         android:id="@+id/view3"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="1dp"
         android:layout_marginTop="5dp"
-        android:background="@android:color/holo_blue_light"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_create_poll_answer_text" />
 

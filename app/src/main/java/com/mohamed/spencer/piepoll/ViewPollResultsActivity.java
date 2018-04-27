@@ -18,6 +18,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -116,7 +119,7 @@ public class ViewPollResultsActivity extends Activity implements View.OnClickLis
 
         protected  WebRequest.Response doInBackground(String... s) {
             WebRequest.Response r = null;
-            Map<String, String> parameters = new HashMap<>();
+            Multimap<String, String> parameters = ArrayListMultimap.create();
             parameters.put("poll", s[0]);
 
             WebRequest wr = new WebRequest();
@@ -182,7 +185,7 @@ public class ViewPollResultsActivity extends Activity implements View.OnClickLis
 
         protected  WebRequest.Response doInBackground(String... s) {
             WebRequest.Response r = null;
-            Map<String, String> parameters = new HashMap<>();
+            Multimap<String, String> parameters = ArrayListMultimap.create();
             parameters.put("poll", s[0]);
 
             WebRequest wr = new WebRequest();

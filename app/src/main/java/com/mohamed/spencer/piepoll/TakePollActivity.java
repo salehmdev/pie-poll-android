@@ -15,6 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -129,7 +132,7 @@ public class TakePollActivity extends Activity implements View.OnClickListener {
         public int pollid = 0;
         protected  WebRequest.Response doInBackground(String... s) {
             WebRequest.Response r = null;
-            Map<String, String> parameters = new HashMap<>();
+            Multimap<String, String> parameters = ArrayListMultimap.create();
             parameters.put("poll", s[0]);
             pollid = Integer.parseInt(s[0]);
             WebRequest wr = new WebRequest();
@@ -185,7 +188,7 @@ public class TakePollActivity extends Activity implements View.OnClickListener {
 
         protected  WebRequest.Response doInBackground(String... s) {
             WebRequest.Response r = null;
-            Map<String, String> parameters = new HashMap<>();
+            Multimap<String, String> parameters = ArrayListMultimap.create();
             parameters.put("pollid", s[0]);
             for(int i = 1; i<s.length; i++) {
                 parameters.put("options[" + s[i] + "]", "on");
@@ -247,7 +250,7 @@ public class TakePollActivity extends Activity implements View.OnClickListener {
 
         protected  WebRequest.Response doInBackground(String... s) {
             WebRequest.Response r = null;
-            Map<String, String> parameters = new HashMap<>();
+            Multimap<String, String> parameters = ArrayListMultimap.create();
             parameters.put("poll", s[0]);
 
             WebRequest wr = new WebRequest();
